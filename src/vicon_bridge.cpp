@@ -479,7 +479,6 @@ private:
         Output_GetSegmentGlobalTranslation trans = msvcbridge::GetSegmentGlobalTranslation(subject_name, segment_name);
         Output_GetSegmentGlobalRotationQuaternion quat = msvcbridge::GetSegmentGlobalRotationQuaternion(subject_name,
                                                                                                         segment_name);
-
         if (trans.Result == Result::Success && quat.Result == Result::Success)
         {
           if (!trans.Occluded && !quat.Occluded)
@@ -530,6 +529,36 @@ private:
         }
         else
         {
+            switch(trans.Result){
+            case Result::NotConnected:
+                std::cerr << "Trans Result: NotConnected" << std::endl;
+                break;
+            case Result::NoFrame:
+                std::cerr << "Trans Result: NoFrame" << std::endl;
+                break;
+            case Result::InvalidSubjectName:
+                std::cerr << "Trans Result: InvalidSubjectName" << std::endl;
+                break;
+            case Result::InvalidSegmentName:
+                std::cerr << "Trans Result: InvalidSegmentName" << std::endl;
+                break;
+            }
+            switch(quat.Result){
+            case Result::NotConnected:
+                std::cerr << "Trans Result: NotConnected" << std::endl;
+                break;
+            case Result::NoFrame:
+                std::cerr << "Trans Result: NoFrame" << std::endl;
+                break;
+            case Result::InvalidSubjectName:
+                std::cerr << "Trans Result: InvalidSubjectName" << std::endl;
+                break;
+            case Result::InvalidSegmentName:
+                std::cerr << "Trans Result: InvalidSegmentName" << std::endl;
+                break;
+            }
+
+
           ROS_WARN("GetSegmentGlobalTranslation/Rotation failed (result = %s, %s), not publishing...",
               Adapt(trans.Result).c_str(), Adapt(quat.Result).c_str());
         }
