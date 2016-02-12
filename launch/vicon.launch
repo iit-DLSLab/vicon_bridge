@@ -1,8 +1,10 @@
+<?xml version="1.0"?>
 <launch>
+<arg name="tracked_frame" default="vicon/hyq_green/body" />
 	<node pkg="vicon_bridge" type="vicon_bridge" name="vicon" output="screen">
 		<param name="stream_mode" value="ClientPull" type="str" />
 		<param name="datastream_hostport" value="192.168.1.15" type="str" />
-		<!--param name="datastream_hostport" value="vicon:801" type="str" /-->
-		<param name="tf_ref_frame_id" value="/world" type="str" />
-		</node>
+		<param name="tf_ref_frame_id" value="world" type="str" />
+	</node>
+	<node pkg="tf" type="static_transform_publisher" name="vicon_broadcaster" args="-0.103791 0.454826 -0.231541 0.500854 -0.499948 0.5006881 -0.498506 $(arg tracked_frame) base_link 10" />
 </launch>
