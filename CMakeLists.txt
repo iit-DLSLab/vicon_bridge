@@ -47,32 +47,38 @@ execute_process(
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
-add_executable(main main.cpp src/vicon_plugin.cpp)
+# ================================== Library config ==========================
 
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/ViconDataStreamSDK_1.11.0_Linux64
 )
 
-# ViconDataStreamSDK library
-target_link_libraries(main ${CMAKE_CURRENT_SOURCE_DIR}/ViconDataStreamSDK_1.11.0_Linux64/libViconDataStreamSDK_CPP.so)
-
 link_directories(
 	/usr/local/lib/dls2
 	/usr/lib/dls2
+	/usr/local/lib/dls2/services
+	/usr/lib/dls2/services
+	/usr/local/lib/dls2/estimators
+	/usr/lib/dls2/estimators
 )
 
 add_library(${PROJECT_NAME}
 	SHARED
-		main.cpp
-		src/vicon_plugin.cpp
+		src/vicon_bridge.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
 	PUBLIC
-		dls_framework_components
 		dls_message_wrappers
+		dls_framework_components
+		dls_param_server
+		dls_estimator
+		dls_state_estimator
+		${CMAKE_CURRENT_SOURCE_DIR}/ViconDataStreamSDK_1.11.0_Linux64/libViconDataStreamSDK_CPP.so
 )
+
+# ================================== Install =================================
 
 install(
 	DIRECTORY   include/
@@ -81,14 +87,8 @@ install(
 )
 
 install(
-	DIRECTORY   config/
-	COMPONENT   ${PROJECT_NAME}
-	DESTINATION /usr/include/dls2/vicon/${PROJECT_NAME}
-)
-
-install(
 	TARGETS             ${PROJECT_NAME}
-	LIBRARY DESTINATION /usr/lib/dls2/vicon
+	LIBRARY DESTINATION /usr/lib/dls2/estimators
 	COMPONENT           ${PROJECT_NAME}
 )
 
