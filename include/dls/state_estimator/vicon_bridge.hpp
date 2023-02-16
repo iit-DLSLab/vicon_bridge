@@ -23,10 +23,11 @@
 #include "dls2/estimator/estimator.hpp"
 #include "dls2/msg_wrappers/signal_reader.hpp"
 #include "dls2/msg_wrappers/signal_writer.hpp"
-#include "dls/parameter_server/parameter_client.hpp"
 
 namespace dls
 {
+    namespace state_estimator 
+    {
     class ViconBridge : public Estimator
     {
     public:
@@ -44,5 +45,6 @@ namespace dls
         void getVersion();
     private:
     };
-} // end namespace dls
-#endif /* end of include guard: VICON_BRIDGE_HPP */
+    } // namespace state_estimator
+} // namespace dls
+#endif /* VICON_BRIDGE_HPP */
