@@ -18,7 +18,7 @@
 #define VICON_BRIDGE_HPP
 
 // Vicon DataStream SDK header
-#include "DataStreamClient.h"
+#include <DataStreamClient.h>
 
 #include "dls2/estimator/estimator.hpp"
 #include "dls2/msg_wrappers/signal_reader.hpp"

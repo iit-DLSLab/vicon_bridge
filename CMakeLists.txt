@@ -49,6 +49,10 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # ================================== Library config ==========================
 
+# Vicon DataStream SDK library
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/third_party)
+
+# Vicon Bridge library
 add_library(${PROJECT_NAME}
     SHARED
 		src/vicon_bridge.cpp
@@ -58,6 +62,7 @@ target_link_directories(${PROJECT_NAME}
 	PRIVATE
         /usr/local/lib/dls2
         /usr/lib/dls2
+		#/usr/lib/dls2/estimators/vicon_sdk
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -65,14 +70,15 @@ target_include_directories(${PROJECT_NAME}
 		include
     PRIVATE
 		/usr/include/eigen3
-		ViconDataStreamSDK_1.11.0_Linux64
+		/usr/include/dls2
+		#/usr/include/dls2/state_estimator/vicon_bridge/vicon_sdk
 )
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
 		dls_message_wrappers
 		dls_estimator
-		#${CMAKE_CURRENT_SOURCE_DIR}/ViconDataStreamSDK_1.11.0_Linux64/libViconDataStreamSDK_CPP.so
+		vicon_sdk
 )
 
 # ================================== Install =================================
