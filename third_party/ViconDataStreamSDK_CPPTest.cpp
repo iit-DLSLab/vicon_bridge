@@ -218,7 +218,7 @@ int main( int argc, char* argv[] )
 
   if (Hosts.empty())
   {
-    Hosts.push_back("localhost:801");
+    Hosts.push_back("192.168.123.13:801");  // Changed from "localhost:801"
   }
 
   // log contains:
@@ -1158,95 +1158,97 @@ int main( int argc, char* argv[] )
           const std::string CameraName = MyClient.GetCameraName( CameraIndex ).CameraName;
           OutputStream << "    Name: " << CameraName << std::endl;
 
-          OutputStream << "    Id: " << MyClient.GetCameraId(CameraName).CameraId << std::endl;
-          OutputStream << "    User Id: " << MyClient.GetCameraUserId(CameraName).CameraUserId << std::endl;
-          OutputStream << "    Type: " << MyClient.GetCameraType(CameraName).CameraType << std::endl;
-          OutputStream << "    Display Name: " << MyClient.GetCameraDisplayName(CameraName).CameraDisplayName << std::endl;
-          Output_GetCameraResolution _Output_GetCameraResolution = MyClient.GetCameraResolution(CameraName);
-          OutputStream << "    Resolution: " << _Output_GetCameraResolution.ResolutionX << " x " << _Output_GetCameraResolution.ResolutionY << std::endl;
-          OutputStream << "    Is Video Camera: " << ( MyClient.GetIsVideoCamera(CameraName).IsVideoCamera ? "true":"false" ) << std::endl;
-
-          unsigned int CentroidCount = MyClient.GetCentroidCount( CameraName ).CentroidCount;
-          OutputStream << "    Centroids(" << CentroidCount << "):" << std::endl;
-
-          for( unsigned int CentroidIndex = 0; CentroidIndex < CentroidCount; ++CentroidIndex )
-          {
-            OutputStream << "      Centroid #" << CentroidIndex << ":" << std::endl;
-
-            Output_GetCentroidPosition _Output_GetCentroidPosition = MyClient.GetCentroidPosition( CameraName, CentroidIndex );
-            OutputStream << "        Position: (" << _Output_GetCentroidPosition.CentroidPosition[0] << ", "
-                                                   << _Output_GetCentroidPosition.CentroidPosition[1] << ")" << std::endl;
-            OutputStream << "        Radius: ("    << _Output_GetCentroidPosition.Radius   << ")" << std::endl;
-
-            Output_GetCentroidWeight _Output_GetCentroidWeight = MyClient.GetCentroidWeight( CameraName, CentroidIndex );
-            if( _Output_GetCentroidWeight.Result == Result::Success )
-            {
-              OutputStream << "        Weighting: " << _Output_GetCentroidWeight.Weight << std::endl;
-            }
-          }
-
-          if (bReadGreyscaleData)
-          {
-            unsigned int BlobCount = MyClient.GetGreyscaleBlobCount(CameraName).BlobCount;
-            OutputStream << "    Blobs(" << BlobCount << "):" << std::endl;
-
-            Output_GetCameraSensorMode _Output_SensorMode = MyClient.GetCameraSensorMode(CameraName);
-            if (_Output_SensorMode.Result == Result::Success)
-            {
-              OutputStream << "   SensorMode( " << _Output_SensorMode.SensorMode << "):" << std::endl;
-            }
-
-            Output_GetCameraWindowSize _Output_CameraWindowSize = MyClient.GetCameraWindowSize(CameraName);
-            if (_Output_CameraWindowSize.Result == Result::Success)
-            {
-              OutputStream << "   WindowSize( "
-                << _Output_CameraWindowSize.WindowStartX << ", "
-                << _Output_CameraWindowSize.WindowStartY<< ", "
-                << _Output_CameraWindowSize.WindowWidth << ", "
-                << _Output_CameraWindowSize.WindowHeight << " ):" << std::endl;
-            }
-
-            Output_GetGreyscaleBlobSubsampleInfo _Output_SubsampleInfo = MyClient.GetGreyscaleBlobSubsampleInfo(CameraName);
-            if( _Output_SubsampleInfo.Result == Result::Success )
-            {
-              OutputStream << "   Subsampling( "
-                << _Output_SubsampleInfo.TwiceOffsetX << ", "
-                << _Output_SubsampleInfo.TwiceOffsetY << ", "
-                << static_cast< unsigned int >( _Output_SubsampleInfo.SensorPixelsPerImagePixelX ) << ", "
-                << static_cast<unsigned int>( _Output_SubsampleInfo.SensorPixelsPerImagePixelY ) << " ):" << std::endl;
-            }
-
-            for (unsigned int BlobIndex = 0; BlobIndex < BlobCount; ++BlobIndex)
-            {
-              OutputStream << "      Blob #" << BlobIndex << ":" << std::endl;
-
-              Output_GetGreyscaleBlob _Output_GetGreyscaleBlob = MyClient.GetGreyscaleBlob(CameraName, BlobIndex);
-              if (_Output_GetGreyscaleBlob.Result == Result::Success)
-              {
-                // Don't print out the whole blob
-                OutputStream << "        # Line Positions X: " << _Output_GetGreyscaleBlob.BlobLinePositionsX.size() << std::endl;
-                OutputStream << "        # Line Positions Y: " << _Output_GetGreyscaleBlob.BlobLinePositionsY.size() << std::endl;
-                OutputStream << "        # Pixel Values: " << _Output_GetGreyscaleBlob.BlobLinePixelValues.size() << std::endl;
-              }
-            }
-          }
-
-          if (bReadVideoData)
-          {
-            Output_GetVideoFrame _Output_GetVideoFrame = MyClient.GetVideoFrame(CameraName);
-            if (_Output_GetVideoFrame.Result == Result::Success)
-            {
-              OutputStream << "    Video Frame:" << std::endl;
-              OutputStream << "      Width:" << _Output_GetVideoFrame.m_Width << std::endl;
-              OutputStream << "      Height:" << _Output_GetVideoFrame.m_Height << std::endl;
-              OutputStream << "      Frame Id:" << _Output_GetVideoFrame.m_FrameID << std::endl;
-              OutputStream << "      Format:" << _Output_GetVideoFrame.m_Format << std::endl;
-              if (_Output_GetVideoFrame.m_Data)
-              {
-                OutputStream << "      Data:" << _Output_GetVideoFrame.m_Data->size() << " samples" << std::endl;
-              }
-            }
-          }
+// *******  THE CODE COMMENTED DOES NOT COMPILE *******
+//          OutputStream << "    Id: " << MyClient.GetCameraId(CameraName).CameraId << std::endl;
+//          OutputStream << "    User Id: " << MyClient.GetCameraUserId(CameraName).CameraUserId << std::endl;
+//          OutputStream << "    Type: " << MyClient.GetCameraType(CameraName).CameraType << std::endl;
+//          OutputStream << "    Display Name: " << MyClient.GetCameraDisplayName(CameraName).CameraDisplayName << std::endl;
+//          Output_GetCameraResolution _Output_GetCameraResolution = MyClient.GetCameraResolution(CameraName);
+//          OutputStream << "    Resolution: " << _Output_GetCameraResolution.ResolutionX << " x " << _Output_GetCameraResolution.ResolutionY << std::endl;
+//          OutputStream << "    Is Video Camera: " << ( MyClient.GetIsVideoCamera(CameraName).IsVideoCamera ? "true":"false" ) << std::endl;
+//
+//          unsigned int CentroidCount = MyClient.GetCentroidCount( CameraName ).CentroidCount;
+//          OutputStream << "    Centroids(" << CentroidCount << "):" << std::endl;
+//
+//          for( unsigned int CentroidIndex = 0; CentroidIndex < CentroidCount; ++CentroidIndex )
+//          {
+//            OutputStream << "      Centroid #" << CentroidIndex << ":" << std::endl;
+//
+//            Output_GetCentroidPosition _Output_GetCentroidPosition = MyClient.GetCentroidPosition( CameraName, CentroidIndex );
+//            OutputStream << "        Position: (" << _Output_GetCentroidPosition.CentroidPosition[0] << ", "
+//                                                   << _Output_GetCentroidPosition.CentroidPosition[1] << ")" << std::endl;
+//            OutputStream << "        Radius: ("    << _Output_GetCentroidPosition.Radius   << ")" << std::endl;
+//
+//            Output_GetCentroidWeight _Output_GetCentroidWeight = MyClient.GetCentroidWeight( CameraName, CentroidIndex );
+//            if( _Output_GetCentroidWeight.Result == Result::Success )
+//            {
+//              OutputStream << "        Weighting: " << _Output_GetCentroidWeight.Weight << std::endl;
+//            }
+//          }
+//
+//          if (bReadGreyscaleData)
+//          {
+//            unsigned int BlobCount = MyClient.GetGreyscaleBlobCount(CameraName).BlobCount;
+//            OutputStream << "    Blobs(" << BlobCount << "):" << std::endl;
+//
+//            Output_GetCameraSensorMode _Output_SensorMode = MyClient.GetCameraSensorMode(CameraName);
+//            if (_Output_SensorMode.Result == Result::Success)
+//            {
+//              OutputStream << "   SensorMode( " << _Output_SensorMode.SensorMode << "):" << std::endl;
+//            }
+//
+//            Output_GetCameraWindowSize _Output_CameraWindowSize = MyClient.GetCameraWindowSize(CameraName);
+//            if (_Output_CameraWindowSize.Result == Result::Success)
+//            {
+//              OutputStream << "   WindowSize( "
+//                << _Output_CameraWindowSize.WindowStartX << ", "
+//                << _Output_CameraWindowSize.WindowStartY<< ", "
+//                << _Output_CameraWindowSize.WindowWidth << ", "
+//                << _Output_CameraWindowSize.WindowHeight << " ):" << std::endl;
+//            }
+//
+//            Output_GetGreyscaleBlobSubsampleInfo _Output_SubsampleInfo = MyClient.GetGreyscaleBlobSubsampleInfo(CameraName);
+//            if( _Output_SubsampleInfo.Result == Result::Success )
+//            {
+//              OutputStream << "   Subsampling( "
+//                << _Output_SubsampleInfo.TwiceOffsetX << ", "
+//                << _Output_SubsampleInfo.TwiceOffsetY << ", "
+//                << static_cast< unsigned int >( _Output_SubsampleInfo.SensorPixelsPerImagePixelX ) << ", "
+//                << static_cast<unsigned int>( _Output_SubsampleInfo.SensorPixelsPerImagePixelY ) << " ):" << std::endl;
+//            }
+//
+//            for (unsigned int BlobIndex = 0; BlobIndex < BlobCount; ++BlobIndex)
+//            {
+//              OutputStream << "      Blob #" << BlobIndex << ":" << std::endl;
+//
+//              Output_GetGreyscaleBlob _Output_GetGreyscaleBlob = MyClient.GetGreyscaleBlob(CameraName, BlobIndex);
+//              if (_Output_GetGreyscaleBlob.Result == Result::Success)
+//              {
+//                // Don't print out the whole blob
+//                OutputStream << "        # Line Positions X: " << _Output_GetGreyscaleBlob.BlobLinePositionsX.size() << std::endl;
+//                OutputStream << "        # Line Positions Y: " << _Output_GetGreyscaleBlob.BlobLinePositionsY.size() << std::endl;
+//                OutputStream << "        # Pixel Values: " << _Output_GetGreyscaleBlob.BlobLinePixelValues.size() << std::endl;
+//              }
+//            }
+//          }
+//
+//          if (bReadVideoData)
+//          {
+//            Output_GetVideoFrame _Output_GetVideoFrame = MyClient.GetVideoFrame(CameraName);
+//            if (_Output_GetVideoFrame.Result == Result::Success)
+//            {
+//              OutputStream << "    Video Frame:" << std::endl;
+//              OutputStream << "      Width:" << _Output_GetVideoFrame.m_Width << std::endl;
+//              OutputStream << "      Height:" << _Output_GetVideoFrame.m_Height << std::endl;
+//              OutputStream << "      Frame Id:" << _Output_GetVideoFrame.m_FrameID << std::endl;
+//              OutputStream << "      Format:" << _Output_GetVideoFrame.m_Format << std::endl;
+//              if (_Output_GetVideoFrame.m_Data)
+//              {
+//                OutputStream << "      Data:" << _Output_GetVideoFrame.m_Data->size() << " samples" << std::endl;
+//              }
+//            }
+//          }
+// *******  THE CODE COMMENTED DOES NOT COMPILE *******
         }
       }
 

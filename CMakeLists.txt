@@ -62,7 +62,6 @@ target_link_directories(${PROJECT_NAME}
 	PRIVATE
         /usr/local/lib/dls2
         /usr/lib/dls2
-		#/usr/lib/dls2/estimators/vicon_sdk
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -71,7 +70,6 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE
 		/usr/include/eigen3
 		/usr/include/dls2
-		#/usr/include/dls2/state_estimator/vicon_bridge/vicon_sdk
 )
 
 target_link_libraries(${PROJECT_NAME}

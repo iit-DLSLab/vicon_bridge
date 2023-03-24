@@ -8,12 +8,13 @@ add_library(vicon_sdk INTERFACE)
 
 target_include_directories(vicon_sdk INTERFACE .)
 
-#target_link_directories(vicon_sdk INTERFACE .)
-
 target_link_libraries(vicon_sdk
 	INTERFACE
 		${CMAKE_CURRENT_SOURCE_DIR}/libViconDataStreamSDK_CPP.so
 )
+
+add_executable(vicon_test ViconDataStreamSDK_CPPTest.cpp)
+target_link_libraries(vicon_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libViconDataStreamSDK_CPP.so)
 
 # ================================== Install =================================
 
@@ -27,12 +28,6 @@ install(
 install(
 	DIRECTORY   	.
 	COMPONENT   	${PROJECT_NAME}
-	DESTINATION 	/usr/lib/dls2/estimators#/${PROJECT_NAME}
+	DESTINATION 	/usr/lib/dls2/estimators
 	FILES_MATCHING	PATTERN "*.so"
 )
-
-#install(
-#	TARGETS     ${PROJECT_NAME}
-#	DESTINATION /usr/lib/dls2/estimators
-#	COMPONENT   ${PROJECT_NAME}
-#)
