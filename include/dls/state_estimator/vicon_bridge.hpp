@@ -82,6 +82,8 @@ namespace dls
             ViconDataStreamSDK::CPP::Client client_;
 
             std::string subject_name_{}, segment_name_{};
+
+            // Variable to show robot pose, markers position and other information on the terminal
             bool print_on_screen_{false};
         };
     } // namespace state_estimator
