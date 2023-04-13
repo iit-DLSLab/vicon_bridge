@@ -86,17 +86,34 @@ namespace dls
             std::vector<ViconDataStreamSDK::CPP::Output_GetMarkerGlobalTranslation> markers_global_translations{};
             getMarkersPositions(markers_global_translations);
 
+            // EDIT#7/7 use it when PlotJuggler plugin for FastDDS supports sequence data structures
+            //for(unsigned int marker_index{0}; marker_index < markers_global_translations.size(); ++marker_index)
+            //{
+            //    Eigen::Vector3d marker_position{markers_global_translations.at(marker_index).Translation[0],
+            //                                    markers_global_translations.at(marker_index).Translation[1],
+            //                                    markers_global_translations.at(marker_index).Translation[2]};
+            //
+            //    writer_vicon_->markers_positions.push_back(marker_position);
+            //}
+
+            // Until the changes of "EDIT#" are not applied, the markers positions published are in this form:
+            // markers_positions[0] = x coordinate of marker#1
+            // markers_positions[1] = y coordinate of marker#1
+            // markers_positions[2] = z coordinate of marker#1
+            // markers_positions[3] = x coordinate of marker#2
+            // and so on...
             for(unsigned int marker_index{0}; marker_index < markers_global_translations.size(); ++marker_index)
             {
-                Eigen::Vector3d marker_position{markers_global_translations.at(marker_index).Translation[0],
-                                                markers_global_translations.at(marker_index).Translation[1],
-                                                markers_global_translations.at(marker_index).Translation[2]};
-
-                writer_vicon_->markers_positions.push_back(marker_position);
+                writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[0]);
+                writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[1]);
+                writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[2]);
             }
 
             // Publish the ViconMsg data
             writer_vicon_.publish();
+
+            // Clear the old markers data
+            writer_vicon_->markers_positions.clear();
         }
 
         void ViconBridge::connectToVicon()
