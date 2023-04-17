@@ -88,6 +88,19 @@ install(
 )
 
 install(
+	DIRECTORY   config/
+	COMPONENT   ${PROJECT_NAME}
+	DESTINATION /usr/include/dls2/state_estimator/${PROJECT_NAME}
+	PATTERN "scheduler" EXCLUDE
+)
+
+install(
+	FILES config/scheduler.yaml
+	COMPONENT   ${PROJECT_NAME}
+	DESTINATION /usr/include/dls2/schedulers/${PROJECT_NAME}
+)
+
+install(
 	TARGETS             ${PROJECT_NAME}
 	LIBRARY DESTINATION /usr/lib/dls2/estimators
 	COMPONENT           ${PROJECT_NAME}
