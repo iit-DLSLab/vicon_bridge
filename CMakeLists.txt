@@ -88,7 +88,7 @@ install(
 )
 
 install(
-	DIRECTORY   config/
+	DIRECTORY   config
 	COMPONENT   ${PROJECT_NAME}
 	DESTINATION /usr/include/dls2/state_estimator/${PROJECT_NAME}
 	PATTERN "scheduler" EXCLUDE
