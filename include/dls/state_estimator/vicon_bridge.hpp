@@ -36,7 +36,7 @@ namespace dls
 
             void run(const std::chrono::system_clock::time_point&) override;
 
-            Status eStop() override {return getStatus();}
+            AppStatus eStop() override {return getStatus();}
             std::string where() override {return "No info from here yet!";};
 
             /**

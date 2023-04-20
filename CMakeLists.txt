@@ -75,7 +75,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
 		dls_message_wrappers
-		dls_estimator
+		dls_framework
 		vicon_sdk
 )
 
