@@ -75,7 +75,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
 		dls_message_wrappers
-		dls_estimator
+		dls_framework
 		vicon_sdk
 )
 
@@ -85,6 +85,19 @@ install(
 	DIRECTORY   include/
 	COMPONENT   ${PROJECT_NAME}_dev
 	DESTINATION /usr/include/dls2/state_estimator/${PROJECT_NAME}
+)
+
+install(
+	DIRECTORY   config
+	COMPONENT   ${PROJECT_NAME}
+	DESTINATION /usr/include/dls2/state_estimator/${PROJECT_NAME}
+	PATTERN "scheduler" EXCLUDE
+)
+
+install(
+	FILES config/scheduler.yaml
+	COMPONENT   ${PROJECT_NAME}
+	DESTINATION /usr/include/dls2/schedulers/${PROJECT_NAME}
 )
 
 install(

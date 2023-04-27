@@ -22,8 +22,7 @@ namespace dls
     {
         ViconBridge::ViconBridge(std::string& ID)
             : Estimator(
-                ID, 
-                std::chrono::milliseconds(10))
+                ID)
                 , writer_vicon_(
                 this->getParticipant(),
                 dls::topics::high_level_estimation::vicon,
