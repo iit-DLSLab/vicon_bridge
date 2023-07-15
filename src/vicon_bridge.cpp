@@ -103,16 +103,19 @@ namespace dls
             // and so on...
             for(unsigned int marker_index{0}; marker_index < markers_global_translations.size(); ++marker_index)
             {
-                writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[0]);
-                writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[1]);
-                writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[2]);
+                // writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[0]);
+                // writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[1]);
+                // writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[2]);
+                writer_vicon_->markers_positions[marker_index*3] = markers_global_translations[marker_index].Translation[0];
+                writer_vicon_->markers_positions[marker_index*3+1] = markers_global_translations[marker_index].Translation[1];
+                writer_vicon_->markers_positions[marker_index*3+2] = markers_global_translations[marker_index].Translation[2];
             }
 
             // Publish the ViconMsg data
             writer_vicon_.publish();
 
             // Clear the old markers data
-            writer_vicon_->markers_positions.clear();
+            // writer_vicon_->markers_positions.clear();
         }
 
         void ViconBridge::connectToVicon()
