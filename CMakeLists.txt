@@ -82,28 +82,28 @@ target_link_libraries(${PROJECT_NAME}
 # ================================== Install =================================
 
 install(
-	DIRECTORY   include/
-	COMPONENT   ${PROJECT_NAME}_dev
-	DESTINATION /usr/include/dls2/state_estimator/${PROJECT_NAME}
+	DIRECTORY   		include/
+	COMPONENT   		vicon_bridge_dev
+	DESTINATION 		/usr/include/dls2/state_estimator/${PROJECT_NAME}
 )
 
 install(
-	DIRECTORY   config
-	COMPONENT   ${PROJECT_NAME}
-	DESTINATION /usr/include/dls2/state_estimator/${PROJECT_NAME}
+	DIRECTORY   		config
+	COMPONENT   		vicon_bridge
+	DESTINATION 		/usr/include/dls2/state_estimator/${PROJECT_NAME}
 	PATTERN "scheduler" EXCLUDE
 )
 
 install(
-	FILES config/scheduler.yaml
-	COMPONENT   ${PROJECT_NAME}
-	DESTINATION /usr/include/dls2/schedulers/${PROJECT_NAME}
+	FILES 				config/scheduler.yaml
+	COMPONENT   		vicon_bridge
+	DESTINATION 		/usr/include/dls2/schedulers/${PROJECT_NAME}
 )
 
 install(
 	TARGETS             ${PROJECT_NAME}
 	LIBRARY DESTINATION /usr/lib/dls2/estimators
-	COMPONENT           ${PROJECT_NAME}
+	COMPONENT           vicon_bridge
 )
 
 # ================================== Packaging =================================
