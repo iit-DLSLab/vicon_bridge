@@ -79,6 +79,8 @@ target_link_libraries(${PROJECT_NAME}
 		vicon_sdk
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES INSTALL_RPATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/lib")
+
 # ================================== Install =================================
 
 install(
@@ -102,7 +104,7 @@ install(
 
 install(
 	TARGETS             ${PROJECT_NAME}
-	LIBRARY DESTINATION /usr/lib/dls2/estimators
+	LIBRARY DESTINATION ${DLS_INSTALL_ESTIMATOR_DIR}
 	COMPONENT           vicon_bridge
 )
 
