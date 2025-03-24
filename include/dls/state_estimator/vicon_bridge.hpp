@@ -5,8 +5,8 @@
 #include <DataStreamClient.h>
 
 #include "dls2/estimator/estimator.hpp"
-#include "dls2/msg_wrappers/signal_writer.hpp"
-#include "dls2/msg_wrappers/vicon.hpp"
+#include "dls2/signal/signal_writer.hpp"
+#include "dls_messages/dds/viconWrapper.hpp"
 
 namespace dls
 {
@@ -61,7 +61,7 @@ namespace dls
             void getMarkersPositions(std::vector<ViconDataStreamSDK::CPP::Output_GetMarkerGlobalTranslation>& markers_global_translations);
 
         private:
-            SignalWriter<Vicon> writer_vicon_;
+            SignalWriter<ViconWrapper> writer_vicon_;
 
             ViconDataStreamSDK::CPP::Client client_;
 

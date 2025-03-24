@@ -10,7 +10,7 @@ namespace dls
                 , writer_vicon_(
                 this->getParticipant(),
                 dls::topics::high_level_estimation::vicon,
-                std::make_shared<Vicon>()
+                std::make_shared<ViconWrapper>()
                 )
             { 
                 connectToVicon();
@@ -33,7 +33,7 @@ namespace dls
             }
 
             // Fill the ViconMsg "timestamp" field
-            writer_vicon_->timestamp_ = time.time_since_epoch().count();
+            writer_vicon_->timestamp = time.time_since_epoch().count();
 
             // Get the subject name (Important: We are considering here only a single subject)
             subject_name_ = client_.GetSubjectName(0).SubjectName;
@@ -52,18 +52,18 @@ namespace dls
             ViconDataStreamSDK::CPP::Output_GetSegmentGlobalTranslation segment_global_translation;
             getRobotPosition(segment_global_translation);
 
-            writer_vicon_->robot_position_[0] = (segment_global_translation.Translation[0])/1000;    // Divided by 1000 to align with ROS topics data
-            writer_vicon_->robot_position_[1] = (segment_global_translation.Translation[1])/1000;
-            writer_vicon_->robot_position_[2] = (segment_global_translation.Translation[2])/1000;
+            writer_vicon_->robot_position[0] = (segment_global_translation.Translation[0])/1000;    // Divided by 1000 to align with ROS topics data
+            writer_vicon_->robot_position[1] = (segment_global_translation.Translation[1])/1000;
+            writer_vicon_->robot_position[2] = (segment_global_translation.Translation[2])/1000;
 
             // Fill the ViconMsg "robot_orientation" field
             ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationQuaternion segment_global_rotation_quaternion;
             getRobotOrientation(segment_global_rotation_quaternion);
 
-            writer_vicon_->robot_orientation_.x() = segment_global_rotation_quaternion.Rotation[0];
-            writer_vicon_->robot_orientation_.y() = segment_global_rotation_quaternion.Rotation[1];
-            writer_vicon_->robot_orientation_.z() = segment_global_rotation_quaternion.Rotation[2];
-            writer_vicon_->robot_orientation_.w() = segment_global_rotation_quaternion.Rotation[3];
+            writer_vicon_->robot_orientation[0] = segment_global_rotation_quaternion.Rotation[0];
+            writer_vicon_->robot_orientation[1] = segment_global_rotation_quaternion.Rotation[1];
+            writer_vicon_->robot_orientation[2] = segment_global_rotation_quaternion.Rotation[2];
+            writer_vicon_->robot_orientation[3] = segment_global_rotation_quaternion.Rotation[3];
 
             // Fill the ViconMsg "markers_positions" field
             std::vector<ViconDataStreamSDK::CPP::Output_GetMarkerGlobalTranslation> markers_global_translations{};
@@ -90,9 +90,9 @@ namespace dls
                 // writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[0]);
                 // writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[1]);
                 // writer_vicon_->markers_positions.push_back(markers_global_translations.at(marker_index).Translation[2]);
-                writer_vicon_->markers_positions_[marker_index*3] = markers_global_translations[marker_index].Translation[0];
-                writer_vicon_->markers_positions_[marker_index*3+1] = markers_global_translations[marker_index].Translation[1];
-                writer_vicon_->markers_positions_[marker_index*3+2] = markers_global_translations[marker_index].Translation[2];
+                writer_vicon_->markers_positions[marker_index*3] = markers_global_translations[marker_index].Translation[0];
+                writer_vicon_->markers_positions[marker_index*3+1] = markers_global_translations[marker_index].Translation[1];
+                writer_vicon_->markers_positions[marker_index*3+2] = markers_global_translations[marker_index].Translation[2];
             }
 
             // Publish the ViconMsg data
