@@ -7,7 +7,7 @@ namespace dls
         ViconBridge::ViconBridge(std::string& ID)
             : Estimator(
                 ID)
-                , writer_vicon_( new dls::Writer<Vicon>(
+                , writer_vicon_( new dls::Writer<dls2_interface::msg::Vicon>(
                 this->getParticipant(),
                 dls::topics::high_level_estimation::vicon
                 ))

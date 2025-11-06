@@ -61,7 +61,7 @@ namespace dls
             void getMarkersPositions(std::vector<ViconDataStreamSDK::CPP::Output_GetMarkerGlobalTranslation>& markers_global_translations);
 
         private:
-            WriterPtr<Vicon> writer_vicon_;
+            WriterPtr<dls2_interface::msg::Vicon> writer_vicon_;
 
             ViconDataStreamSDK::CPP::Client client_;
 
