@@ -6,11 +6,10 @@
 
 #include "dls2/estimator/estimator.hpp"
 #include "dls2/signal/writer.hpp"
-#include "dls_messages/dds/vicon.hpp"
 
 namespace dls
 {
-    namespace state_estimator 
+    namespace state_estimator
     {
         class ViconBridge : public Estimator
         {
@@ -24,7 +23,7 @@ namespace dls
             std::string where() override {return "No info from here yet!";};
 
             /**
-             * @brief Establish a connection between the ViconDataStreamSDK client and the Vicon Nexus and 
+             * @brief Establish a connection between the ViconDataStreamSDK client and the Vicon Nexus and
              * configure the client and the options that you want to enable for the Vicon data.
              * See "ViconDataStreamSDK_CPPTest.cpp" for more info and options.
              */
