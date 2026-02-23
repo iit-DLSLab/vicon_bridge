@@ -100,7 +100,8 @@ install(
 install(
 	FILES 				config/scheduler.yaml
 	COMPONENT   		vicon_bridge
-	DESTINATION 		/usr/include/dls2/schedulers/${PROJECT_NAME}
+	DESTINATION 		/usr/include/dls2/schedulers/
+	RENAME 				${PROJECT_NAME}.yaml
 )
 
 install(
