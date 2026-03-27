@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(vicon_bridge)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
 add_compile_options("-std=c++2a")
 
@@ -68,12 +69,12 @@ target_include_directories(${PROJECT_NAME}
 	PUBLIC
 		include
     PRIVATE
-		/usr/include/eigen3
 		/usr/include/dls2
 )
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
+		Eigen3::Eigen
 		dls_signal
 		dls_messages
 		dls_framework
